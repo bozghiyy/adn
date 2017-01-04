@@ -1,7 +1,9 @@
 <html>
 <head>
 <script>
-// Function to detect the screen size of the visitor
+/**
+ * Function to detect the screen size of the visitor
+ */
 function detectWidth(){
     var w = window;
     var d = w.document;
@@ -29,8 +31,7 @@ setTimeout(initAdserver, PREBID_TIMEOUT);
 var pbjs = pbjs || {};
 pbjs.que = pbjs.que || [];
 
-// Load the Prebid Javascript Library Async. We recommend loading it immediately after
-// the initAdserver() and setTimeout functions.
+
 loadScript('prebid.js'); // REPLACE with the location of prebid
 
 /**
@@ -135,31 +136,31 @@ pbjs.que.push(function() {
       }, {
         key: "hb_pb",
         val: function(bidResponse) {
-        if(bidResponse.pbHg >= 20) return '20.00';
+        if(bidResponse.cpm >= 20) return '20.00';
         return bidResponse.pbHg;
        }
       }]
     },
     appnexus: {
       bidCpmAdjustment: function(bidCpm) { 
-       return bidCpm * EXCHANGE_RATE * .9;
+       return bidCpm * EXCHANGE_RATE * .9; // Exchange rate and 90% revshare commission
      },
       alwaysUseBid: true
     },
     conversant: {
       bidCpmAdjustment: function(bidCpm) { 
-       return bidCpm * EXCHANGE_RATE * .9;
+       return bidCpm * EXCHANGE_RATE * .7; // Exchange rate and 70% revshare commission
      },
       alwaysUseBid: true
     },
     pulsepoint: {
-      bidCpmAdjustment: function(bidCpm) { 
+      bidCpmAdjustment: function(bidCpm) {  // Exchange rate and no commission
        return bidCpm * EXCHANGE_RATE;
      },
       alwaysUseBid: true
     },
     sovrn: {
-      bidCpmAdjustment: function(bidCpm) { 
+      bidCpmAdjustment: function(bidCpm) {   // Exchange rate and no commission
        return bidCpm * EXCHANGE_RATE;
      },
       alwaysUseBid: true
